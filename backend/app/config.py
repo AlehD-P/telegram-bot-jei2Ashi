@@ -37,6 +37,14 @@ class Settings(BaseSettings):
             raise ValueError(f"file_storage_provider must be one of {sorted(allowed)}")
         return value
 
+    @field_validator("bot_token", "bot_webhook_secret", "database_url", "frontend_public_url")
+    @classmethod
+    def _ensure_required_in_production(cls, value: str, info):
+        settings = info.data
+        if settings.get("APP_ENV") == "production" and not value:
+            raise ValueError(f"{info.field_name} is required in production")
+        return value
+
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:

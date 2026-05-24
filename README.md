@@ -2,6 +2,8 @@
 
 Reusable scaffold for a Telegram bot platform with a Python backend, Telegram webhook support, PostgreSQL persistence, and a Telegram Mini App frontend.
 
+> Status: scaffold in progress. Core backend flows, Mini App auth, and persistence wiring are implemented at a basic level, but the application is not yet production complete.
+
 ## Bill of Software
 
 | Component | Technology | Purpose |
@@ -19,7 +21,7 @@ Reusable scaffold for a Telegram bot platform with a Python backend, Telegram we
 ## Components and Purpose
 
 ### Backend API
-The FastAPI backend exposes health endpoints, Telegram webhook endpoints, and authenticated Mini App APIs.
+The FastAPI backend exposes health endpoints, Telegram webhook endpoints, and authenticated Mini App APIs. The current implementation now includes typed Telegram update handling, webhook dispatch, and basic Mini App auth/persistence flow.
 
 ### Bot Logic
 The bot layer isolates Telegram-specific parsing, command dispatching, and response creation from HTTP transport concerns.
@@ -31,7 +33,7 @@ The repository and model structure are designed to keep database access explicit
 Storage abstractions keep file handling separate from application logic and make local or S3-compatible storage swappable.
 
 ### Frontend Mini App
-The frontend provides the in-Telegram UI that communicates with the backend through authenticated API calls.
+The frontend currently provides a minimal in-Telegram UI scaffold and still needs a proper Telegram Web Apps SDK bootstrap and API-driven UI.
 
 ### Deployment Assets
 Apache, systemd, and webhook scripts provide the baseline for Linux deployment and Telegram integration.
@@ -170,7 +172,7 @@ You can then run the backend locally against the database or adapt the compose f
 
 ## Telegram Mini Apps
 
-This platform includes a Telegram Mini App frontend that runs inside the Telegram client.
+This platform includes a Telegram Mini App frontend that runs inside the Telegram client. The current codebase provides launch and integration scaffolding, but the Mini App UI is still minimal and the user-facing experience is not yet complete.
 
 ### How it is used
 
@@ -204,7 +206,7 @@ Users can open the Mini App from within Telegram in one of these ways:
 - Use the bot menu entry if the bot is configured with a web app shortcut.
 - Open the bot and choose the Mini App from the bot’s interface when prompted.
 
-When launched, Telegram opens the frontend inside an in-app browser and passes Telegram context to the Mini App. The frontend should read `initData`, send it to the backend, and wait for server validation before showing authenticated content.
+When launched, Telegram opens the frontend inside an in-app browser and passes Telegram context to the Mini App. The frontend should read `initData`, send it to the backend, and wait for server validation before showing authenticated content. At the moment, the backend supports the basic auth/persistence path, while the frontend Mini App UI still needs to be expanded.
 
 ## Deployment notes
 

@@ -14,5 +14,6 @@ class UserService:
         user = self.repository.get_by_telegram_user_id(telegram_user_id)
         if user is not None:
             user.username = username
+            self.repository.session.flush()
             return user
         return self.repository.save(User(telegram_user_id=telegram_user_id, username=username))
