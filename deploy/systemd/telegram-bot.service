@@ -1,0 +1,19 @@
+[Unit]
+Description=Telegram Bot Backend
+After=network.target postgresql.service
+
+[Service]
+User=app
+Group=app
+WorkingDirectory=/opt/app/source/backend
+EnvironmentFile=/opt/app/source/.env
+ExecStart=/opt/app/source/backend/.venv/bin/gunicorn -k uvicorn.workers.UvicornWorker app.main:app --bind 127.0.0.1:8000
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

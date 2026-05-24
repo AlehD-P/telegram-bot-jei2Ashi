@@ -187,12 +187,12 @@ repo/
     apache/
     systemd/
     scripts/
+    docker-compose.yml
+    .env.example
 
   .github/
     workflows/
 
-  docker-compose.yml
-  .env.example
 ```
 
 ## 8. Development Priorities
